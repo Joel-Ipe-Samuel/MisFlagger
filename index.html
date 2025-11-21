@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MisFlagger</title>
-  <!--<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚩</text></svg>">-->
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +13,7 @@
   <style>
     * { font-family: 'Space Grotesk', sans-serif; }
 
-    html {
+    html { /*hiding scrollbar*/
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -158,7 +157,7 @@
             <li>• <strong>Click on a message to analyse it.</strong></li>
             <li>• Click the highlighted text in the message that contains red flags.</li>
             <li>• Once all flags are found, you'll send a response.</li>
-            <li>• Complete 10 messages to see your score!</li>
+            <li>• Complete <strong>10 messages</strong> to see your score!</li>
           </ul>
         </div>
         
@@ -166,14 +165,15 @@
           <h3 class="font-bold mb-2">👀 What to look for:</h3>
           <ul class="space-y-2 text-sm">
             <li>• ALL CAPS and excessive punctuation (!!!)</li>
-            <li>• Urgency tactics ("CLICK NOW!", "gone in 24 hours")</li>
+            <li>• Urgency tactics ("CLICK NOW!", "gone in <a style="cursor: pointer" onclick="javascript: window.open('https://youtu.be/dQw4w9WgXcQ/','_blank');">6-7</a> hours")</li>
             <li>• Promises that seem too good to be true</li>
-            <li>• Suspicious links or anonymous senders</li>
+            <li>• Suspicious links that are unsecure or seems fake</li>
             <li>• Conspiracy theories and fear-mongering</li>
           </ul>
         </div>
       </div>
       
+      <!--START GAME BUTTON-->
       <button onclick="startGame()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all hover:-translate-y-0.5">
         Start
       </button>
@@ -181,7 +181,7 @@
 
     <!--GAME SCREEN-->
     <div id="gameScreen" class="hidden w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col" style="height: 75vh; max-height: 650px;">
-      <!-- Chat Header -->
+      <!--CHAT HEADER - CHANGE THE HEADER COLOUR HERE-->
       <div class="bg-gradient-to-r from-blue-500 to-violet-600 p-4 flex items-center gap-3 text-white">
         <div class="w-10 h-10 bg-white bg-opacity-30 rounded-full flex items-center justify-center text-xl">
           👨‍👩‍👧
@@ -203,7 +203,9 @@
 
       <!--ANALYSIS PANEL-->
       <div id="analysisPanel" class="hidden bg-white border-t-2 border-gray-200 p-4">
-        <p class="text-sm font-semibold text-gray-700 mb-2"><span class="inverted-emoji">🚩</span> Click on the parts of the message that are red flags:</p>
+        <p class="text-sm font-semibold text-gray-700 mb-2">
+          <span class="inverted-emoji">🚩</span> Click on the parts of the message that are red flags:
+        </p>
         <div id="messageAnalysis" class="bg-gray-50 rounded-lg p-3 mb-3 text-sm leading-relaxed"></div>
         <div class="flex justify-between items-center">
           <div id="flagCounter" class="text-xs text-gray-600">Found: <span class="font-bold">0/3</span></div>
@@ -251,8 +253,8 @@
         <a href="https://citizendigitalfoundation.org/terms-and-conditions" target="_blank" class="text-sm cursor-pointer relative font-semibold text-blue-600 group px-1 py-1 inline-block">
         <span class="relative z-10">Terms & Conditions</span>
         <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span></a> | 
-        <a href="https://www.netlify.com/legal/terms-of-use" target="_blank" class="text-sm cursor-pointer relative font-semibold text-blue-600 group px-1 py-1 inline-block">
-        <span class="relative z-10">Hosted with Netlify - Terms & Conditions</span>
+        <a href="https://vercel.com/legal/privacy-policy" target="_blank" class="text-sm cursor-pointer relative font-semibold text-blue-600 group px-1 py-1 inline-block">
+        <span class="relative z-10">Hosted with Vercel - Privacy Policy</span>
         <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span></a>
       </p>
     </div>
@@ -267,9 +269,10 @@
     let messageClickable = true;
     
     const messages = [
-      {
+      {//set
         sender: "Veliappachan",
         avatar: "👴",
+        forwarded: false,
         text: "OMG!! Scientists discovered that microwaving food causes cancer!! My friend's doctor confirmed it. Stop using microwave NOW before it's too late!!! Share with everyone!!!",
         reactions: [
           'Oh, thanks for clearing that up kiddo!',
@@ -285,19 +288,20 @@
           { text: "before it's too late!!!", isFlag: false, clickable: true },
           { text: "Share with everyone!!!", isFlag: true, type: "pressure" }
         ],
-        response: "Appacha, this claim about microwaving food causing cancer isnt backed by scientific proof. This is classic misinformation made to steer people the wrong way. And words like \"OMG\" and \"NOW\" might pressure other people to forward it more. pls check verified medical sources before sending any information in..."
+        response: "Appacha, this claim about microwaved food causing cancer isnt backed by scientific proof. This is <strong>classic misinformation</strong> made to steer people the wrong way. And words like \"OMG\" and \"NOW\" might <strong>pressure other people to forward it</strong> more. pls <strong>check verified medical sources</strong> before sending any information in..."
       },
-      {
+      {//set
         sender: "Joshua chettan",
         avatar: "👨",
-        text: "OMG GUYS!! Found this top tier investment - make $10,000 in 2 weeks GUARANTEED! My buddy made $50k already! Only 5 spots left! Click: bit.ly/fast-money",
+        forwarded: false,
+        text: "NO WAY GUYS!! Found this top tier investment - make $10,000 in 2 weeks GUARANTEED! My buddy made $50k already! Only 5 spots left! Click: bit.ly/fast-money",
         reactions: [
           'Ahh, it makes sense now...',
           'You\'re right. I might need to make a phone call 🙃',
           'Good catch, almost fell for it 🫠'
         ],
         segments: [
-          { text: "OMG GUYS!!", isFlag: false, clickable: true },
+          { text: "NO WAY GUYS!!", isFlag: false, clickable: true },
           { text: "Found this top tier investment -", isFlag: false, clickable: true },
           { text: "make $10,000 in 2 weeks GUARANTEED!", isFlag: true, type: "too-good" },
           { text: "My buddy made $50k already!", isFlag: false, clickable: true },
@@ -305,25 +309,31 @@
           { text: "Click:", isFlag: false },
           { text: "bit.ly/fast-money", isFlag: true, type: "suspicious-link" }
         ],
-        response: "That buddy might be lucky now, but he might lose way more if he clicks that link. This message screams unrealistic profits, a seemingly valuable inveestment, due to the \"5 spots left\" trick and not to mention that suspicious link, which isn't used by any official sites"
+        response: "That buddy might be lucky now, but he might lose way more <strong>if he clicks that link</strong>. This message screams <strong>unrealistic profits within a short time</strong>. And that <strong>\"5 spots left\"</strong> trick and not to mention that <strong>suspicious link</strong> are textbook misinformation tactics."
       },
-      {
-        sender: "Unknown Number",
-        avatar: "❓",
-        text: "BREAKING NEWS FROM CCN: Government putting tracking chips in grocery receipts! Don't touch them! Tonald S. Drump is behind this! WAKE UP PEOPLE!!!",
-        reactions: null,
+      {//set
+        sender: "Molly Mol",
+        avatar: "👧",
+        forwarded: true,
+        text: "BREAKING NEWS FROM CCN: Government is putting GPS chips in grocery receipts! Don't touch them! Tonald S. Drump is behind all this! WAKE UP PEOPLE!!!",
+        reactions: [
+          'Oh no sorry about that 🫠',
+          'Guess those receipts are alright then 😅',
+          'Now that you mention it, CCN is not right at all 😓'
+        ],
         segments: [
-          { text: "BREAKING NEWS FROM CCN:", isFlag: false, clickable: true },
-          { text: "Government putting tracking chips in grocery receipts!", isFlag: true, type: "conspiracy" },
-          { text: "Don't touch them!", isFlag: true, type: "fear" },
-          { text: "Tonald S. Drump is behind this!", isFlag: true, type: "conspiracy" },
+          { text: "BREAKING NEWS FROM CCN:", isFlag: true, clickable: true },
+          { text: "Government is putting tracking chips in grocery receipts!", isFlag: true, type: "conspiracy" },
+          { text: "Don't touch them!", isFlag: false, type: "fear" },
+          { text: "Tonald S. Drump is behind all this!", isFlag: true, type: "conspiracy" },
           { text: "WAKE UP PEOPLE!!!", isFlag: false, clickable: true }
         ],
-        response: "Everyone block this contact and delete this message. This is unwanted conspiracies at work by impersonating verified news sources. Besides this theory has zero backing at best! and it plants fear."
+        response: "Molly, this is unwanted conspiracy theories at work by <strong>impersonating verified news sources</strong>. Besides this theory has <strong>zero backing</strong> at best! and it <strong>plants fear</strong> and it <strong>directs anger</strong> towards an unknowing person."
       },
-      {
+      {//set 
         sender: "Sosamma aunty",
         avatar: "👩",
+        forwarded: true,
         text: "Everyone NEEDS to see this! Eating 3 apples daily REVERSES aging - look 20 years younger! Doctors HATE this trick! Forward NOW!!!",
         reactions: [
           'Oh my! Thank you dear',
@@ -337,26 +347,32 @@
           { text: "Doctors HATE this trick!", isFlag: true, type: "clickbait" },
           { text: "Forward NOW!!!", isFlag: true, type: "pressure" }
         ],
-        response: "Aunty, even though an apple a day keeps the doctor away, it wont make you immortal 😂. These are classic clickbait tactics to waste people's time and it's even more clickbaity due to the \"Forward NOW\". Still eat your veggies, guys 💪"
+        response: "Aunty, even though an apple a day keeps the doctor away, it wont make you immortal 😂. These are classic <strong>clickbait tactics</strong> to <strong>waste people's time</strong> and the message is even more bogus with the <strong>\"Forward NOW\"</strong>. Still eat your veggies, guys 💪"
       },
-      {
-        sender: "+1(212) 656-4323",
-        avatar: "❓",
-        text: "ALERT!!! Your bank account will be CLOSED in 24 hours!!! Click here NOW and enter your password and card details: secure-bank.xyz/urgent",
-        reactions: null,
-        segments: [
-          { text: "ALERT!!!", isFlag: false, clickable: true },
-          { text: "Your bank account will be", isFlag: false, clickable: true },
-          { text: "CLOSED in 24 hours!!!", isFlag: true, type: "panic" },
-          { text: "Click here NOW and", isFlag: false, clickable: true },
-          { text: "enter your password and card details:", isFlag: true, type: "personal-info" },
-          { text: "secure-bank.xyz/urgent", isFlag: true, type: "suspicious-domain" }
+      {//set
+        sender: "Vignesh Vazha",
+        avatar: "🧑",
+        forwarded: false,
+        text: "Family ALERT!!! All HDFC bank accounts will be inactive on the 6th of September! Make all your transactions before that day!!! Here are more details: hdfc-bank.xyz/urgent. FORWARD NOW!",
+        reactions: [
+          'oops i guess you\'re right!',
+          'I guess the banks will be open then 😮‍💨',
+          '😮😮'
         ],
-        response: "pls nobody click that link. No bank will give a suspicious link like this and ask for account details - it's a phishing attempt imo. And the need to click immediately doesn't make it any more official."
+        segments: [
+          { text: "Family ALERT!!!", isFlag: false, clickable: true },
+          { text: "All HDFC bank accounts will be", isFlag: false, clickable: true },
+          { text: "inactive on the 6th of September! ", isFlag: false, type: "panic" },
+          { text: "Make all your transactions before that day!!!", isFlag: true, clickable: true },
+          { text: "Here are more details: hdfc-bank.xyz/urgent. ", isFlag: true, type: "personal-info" },
+          { text: "FORWARD NOW", isFlag: true, type: "suspicious-domain" }
+        ],
+        response: "This is false, I just checked the official HDFC bank and there is <strong>no such news</strong> of all accounts being inactive on that date. This message invokes <strong>fear</strong> for HDFC account holders and even directs you to a <strong>fake bank site</strong>."
       },
-      {
+      {//set
         sender: "Bobby uncle",
         avatar: "👨‍🦲",
+        forwarded: false,
         text: "Saw on Facebook that drinking neem oil with juice cures ALL diseases! Pharmacies are scamming us! Someone forwarded it, so must be true!",
         reactions: [
           '👍👍👍',
@@ -370,12 +386,34 @@
           { text: "Someone forwarded it,", isFlag: false, clickable: true },
           { text: "so it must be true!", isFlag: true, type: "chain-message" }
         ],
-        response: "Uncle, this is clearly absurd advice and just because someone forwarded it on social media, doesn't make it true. We should rely on medical facts, not medical conspiracies. 🤔"
+        response: "Uncle, this is clearly <strong>absurd advice</strong> and just because someone forwarded it on social media, <strong>doesn't make it true</strong>. We should rely on medical facts, not medical conspiracies. 🤔"
       },
-      {
+      {//set
+        sender: "Scandalous Sam",
+        avatar: "🤩",
+        forwarded: true,
+        text: "HOT NEWS!! Mruno Bars murdered Deline Cion in broad daylight!😱😱😱!! This has to be true!! Click the link to learn more: www.celebscoop.com/mrunobars!! FORWARD PEOPLE, FORWARD!!",
+        reactions: [
+          'I almost believed it 😒',
+          'Oh sorry about that, I\'ll be more careful',
+          'Ah that makes more sense!'
+        ],
+        segments: [
+          { text: "HOT NEWS!! ", isFlag: false, type: "too-good" },
+          { text: "Mruno bars murdered Deline Cion", isFlag: true, clickable: true },
+          { text: "in broad daylight!", isFlag: false, type: "personal-info" },
+          { text: "😱😱😱!!", isFlag: false, clickable: false },
+          { text: "This has to be true!!", isFlag: false, clickable: true },
+          { text: "Click the link to learn more: www.celebscoop.com/mrunobars!!", isFlag: true, type: "suspicious-domain" },
+          { text: "FORWARD PEOPLE, FORWARD!!", isFlag: true, clickable: true}
+        ],
+        response: "Don't believe every scandal out there. I looked it up and it's a <strong>popular hoax</strong> going around the internet at the moment. That link can look secure and real, but it might be a <strong>tabloid page or just a misinformation page</strong> altogether."
+      },
+      {//set
         sender: "Amma",
         avatar: "👵",
-        text: "SHOCKING! Vaccines contain alien DNA that turns kids into zombies!! Secret whistleblower revealed this!! DELETE if you vaccinated! SHARE IMMEDIATELY!!!",
+        forwarded: true,
+        text: "SHOCKING! Vaccines contain mRNA which causes AUTISM!! Secret whistleblower revealed this!! DELETE if you vaccinated! SHARE IMMEDIATELY!!!",
         reactions: [
           'Thanks for letting us know!',
           'Oh dear, I should check before sharing',
@@ -384,48 +422,33 @@
         segments: [
           { text: "SHOCKING!", isFlag: false, clickable: true },
           { text: "Vaccines contain", isFlag: false, clickable: true },
-          { text: "alien DNA that turns kids into zombies!!", isFlag: true, type: "conspiracy" },
+          { text: "mRNA which causes AUTISM!!", isFlag: true, type: "conspiracy" },
           { text: "Secret whistleblower revealed this!!", isFlag: true, type: "unverified" },
           { text: "DELETE if you vaccinated!", isFlag: false, clickable: true },
           { text: "SHARE IMMEDIATELY!!!", isFlag: true, type: "pressure" }
         ],
-        response: "I dont think thats how vaccines work. Messages like this have absurd claims, unverified \"professionals\" and an urgency to share to top it all off. We've gotta be more careful."
+        response: "Amma, I dont think thats how vaccines work. Messages like this have <strong>absurd claims</strong>, <strong>unverified \"professionals\"</strong> and an <strong>urgency to share the message</strong> to top it all off. We've gotta be more careful next time."
       },
-      {
-        sender: "Unknown",
-        avatar: "❓",
-        text: "WIN FREE iPHONE 17 AIR!!! Click NOW and enter email, phone, home address to claim prize!!! Expires in 1 HOUR!!! www.free-phone.tk",
-        reactions: null,
-        segments: [
-          { text: "WIN FREE iPHONE 17 AIR!!!", isFlag: true, type: "too-good" },
-          { text: "Click NOW and", isFlag: false, clickable: true },
-          { text: "enter email, phone, home address", isFlag: true, type: "personal-info" },
-          { text: "to claim prize!!!", isFlag: false, clickable: true },
-          { text: "Expires in 1 HOUR!!!", isFlag: false, clickable: true },
-          { text: "www.free-phone.tk", isFlag: true, type: "suspicious-domain" }
-        ],
-        response: "An iphone might be real, but this message sure isn't. A message like this with urgency to click a unsecure link with weird requirements is nothing, but a scam. Family, avoid it at all costs."
-      },
-      {
+      {//set
         sender: "Riya",
         avatar: "👧",
-        text: "BREAKING NEWS!!! Elections are RIGGED! Millions of FAKE votes!! Saw a video on YouTube (deleted = they're hiding truth!!!) Send to 50 people NOW!!!",
+        text: "BREAKING NEWS!!! The Pentagon has caught fire! Millions of documents BURNT!! Saw a video on YouTube (deleted = they're hiding the facts!!!) Send to 50 people NOW!!!",
         reactions: [
-          'I guess they the votes were legit then.',
+          'I guess the pentagon is safe then.',
           'Ah, i\'ll do my research next time.',
           'Oh, you\'re right there.'
         ],
         segments: [
           { text: "BREAKING NEWS!!!", isFlag: false, clickable: true },
-          { text: "Elections are", isFlag: false, clickable: true },
-          { text: "RIGGED! Millions of FAKE votes!!", isFlag: true, type: "political-misinfo" },
+          { text: "The Pentagon has", isFlag: false, clickable: true },
+          { text: "caught fire! Millions of documents BURNT!!", isFlag: true, type: "political-misinfo" },
           { text: "Saw a video on YouTube", isFlag: false, clickable: true },
-          { text: "(deleted = they're hiding truth!!!)", isFlag: true, type: "conspiracy" },
+          { text: "(deleted = they're hiding the facts!!!)", isFlag: true, type: "conspiracy" },
           { text: "Send to 50 people NOW!!!", isFlag: true, type: "chain-pressure" }
         ],
-        response: "This has conspiracy written all over it, and you never know if people will believe it. The message asking us to send to 50 other people also doesn't help it's case. Let's look onto official sources instead!"
+        response: "This has <strong>conspiracy theory</strong> written all over it, and you never know if people will believe it. The message is also asking us to <strong>send this to 50 other people</strong> which doesn't help it's case. Let's look onto official sources instead!"
       },
-      {
+      {//set
         sender: "Crypto Chettan",
         avatar: "😎",
         text: "Secret Bitcoin bot GUARANTEES 1000% profit!!! NO RISK! Expert friend confirms! Only works if you sign up in 3 hours! Link: crypto-gains.io",
@@ -442,7 +465,7 @@
           { text: "Link:", isFlag: false },
           { text: "crypto-gains.io", isFlag: true, type: "suspicious-link" }
         ],
-        response: "Crypto scams can be common, especially with pump and dump schemes, which this might be. It's important to do our research and not believe insane profit margins with zero risks. Plus that 3 hours deadline isn't real, it's just there to click that crappy link more faster."
+        response: "<strong>Crypto scams</strong> can be common, especially with <strong>pump and dump schemes</strong>, which this might be. It's important to do our research and not believe <strong>insane profit margins with zero risks</strong>. Plus that 3 hours <strong>deadline isn't real</strong>, it's just there to click that crappy link more faster."
       }
     ];
 
@@ -496,6 +519,7 @@
         <div class="flex-1">
           <div class="text-xs font-semibold text-gray-700 mb-1">${msg.sender}</div>
           <div class="chat-bubble bg-white rounded-2xl rounded-tl-none p-3 shadow-sm border border-gray-200 cursor-pointer hover:border-yellow-400 transition-colors" onclick="analyzeMessage(${currentMessageIndex})">
+            ${msg.forwarded ? '<p class="text-xs text-gray-500 italic mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>Forwarded</p>' : ''}
             <p class="text-sm text-gray-800">${msg.text}</p>
           </div>
         </div>
@@ -541,7 +565,7 @@
       
       const segment = currentMessage.segments[segmentIndex];
       if (segment.isFlag) {
-        element.classList.add('bg-red-100', 'font-semibold', 'selected');
+        element.classList.add('bg-red-300', 'font-semibold', 'selected');
         element.classList.remove('hover:bg-yellow-200');
         foundFlags++;
         
@@ -554,13 +578,13 @@
       } 
       
       else {
-        // Wrong selection - briefly show red then remove
-        element.classList.add('bg-red-500', 'text-white', 'selected');
+        // Wrong selection - briefly show yellow then remove
+        element.classList.add('bg-yellow-300', 'text-black', 'selected');
         element.classList.remove('hover:bg-yellow-200');
         wrongClicksCount++;
         
         setTimeout(() => {
-          element.classList.remove('bg-red-500', 'text-white');
+          element.classList.remove('bg-yellow-300', 'text-white');
           element.classList.add('line-through', 'opacity-50');
         }, 500);
       }
@@ -617,8 +641,8 @@
           chatContainer.appendChild(reactionDiv);
           chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-      }, 800);
-      
+      }, 3000); //reactions timing; change along with showNextMessage timing to prevent message overlap
+
       //Reset wrong clicks counter
       wrongClicksCount = 0;
       
@@ -626,7 +650,7 @@
       document.getElementById('submitAnalysis').disabled = true;
       
       currentMessageIndex++;
-      setTimeout(() => showNextMessage(), 2500);
+      setTimeout(() => showNextMessage(), 4000); //adjust next message timing
     };
 
     function toggleAccordion(index) {
