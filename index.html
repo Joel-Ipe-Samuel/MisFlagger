@@ -102,6 +102,15 @@
       display: inline-block;
       transform: scaleX(-1);
     }
+
+    .highlighted {
+      background-color: #fef08a !important;
+      font-weight: 500;
+    }
+
+    .fully-selected {
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen flex flex-col">
@@ -561,32 +570,36 @@
     let wrongClicksCount = 0;
 
     function selectFlag(element, segmentIndex) {
-      if (element.classList.contains('selected')) return;
-      
       const segment = currentMessage.segments[segmentIndex];
-      if (segment.isFlag) {
-        element.classList.add('bg-red-300', 'font-semibold', 'selected');
-        element.classList.remove('hover:bg-yellow-200');
-        foundFlags++;
-        
-        updateFlagCounter();
-        
-        // Enable submit after finding just one flag
-        if (foundFlags >= 1) {
-          document.getElementById('submitAnalysis').disabled = false;
-        }
-      } 
       
-      else {
-        // Wrong selection - briefly show yellow then remove
-        element.classList.add('bg-yellow-300', 'text-black', 'selected');
-        element.classList.remove('hover:bg-yellow-200');
-        wrongClicksCount++;
+      // If already fully selected, ignore
+      if (element.classList.contains('fully-selected')) return;
+      
+      // If already highlighted (first click), confirm selection (second click)
+      if (element.classList.contains('highlighted')) {
+        element.classList.remove('highlighted', 'hover:bg-yellow-200');
         
-        setTimeout(() => {
-          element.classList.remove('bg-yellow-300', 'text-white');
-          element.classList.add('line-through', 'opacity-50');
-        }, 500);
+        if (segment.isFlag) {
+          element.classList.add('bg-red-100', 'font-semibold', 'fully-selected');
+          foundFlags++;
+          updateFlagCounter();
+          
+          if (foundFlags >= 1) {
+            document.getElementById('submitAnalysis').disabled = false;
+          }
+        } else {
+          // Wrong selection
+          element.classList.add('bg-red-500', 'text-white', 'fully-selected');
+          wrongClicksCount++;
+          
+          setTimeout(() => {
+            element.classList.remove('bg-red-500', 'text-white');
+            element.classList.add('line-through', 'opacity-50');
+          }, 500);
+        }
+      } else {
+        // First click - just highlight
+        element.classList.add('highlighted', 'bg-yellow-300');
       }
     }
 
