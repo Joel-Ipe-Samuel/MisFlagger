@@ -9,11 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!--Stylesheet below--><!--change the font in LN14-->
+  <!--change the font with web embed name in LN14-->
   <style>
     * { font-family: 'Space Grotesk', sans-serif; }
 
-    html { /*hiding scrollbar*/
+    html { /*hiding the default scrollbar*/
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -28,50 +28,12 @@
       50% { background-color: rgba(59, 130, 246, 0.2); }
     }
     
-    .message-enter { animation: slideIn 0.3s ease-out; }
-    
     .chat-bubble {
       max-width: 75%;
       word-wrap: break-word;
     }
     
-    .highlight-animation {
-      animation: highlight 0.5s ease-in-out;
-    }
-    
-    .flag-tag {
-      display: inline-block;
-      padding: 4px 10px;
-      margin: 2px;
-      background: #fee2e2;
-      color: #991b1b;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .flag-tag:hover {
-      background: #fca5a5;
-      transform: scale(1.05);
-    }
-    
-    .flag-tag.selected {
-      background: #dc2626;
-      color: white;
-    }
-
-    .typing-indicator {
-      display: flex;
-      gap: 4px;
-      padding: 12px 16px;
-      background: white;
-      border-radius: 12px;
-      width: fit-content;
-      margin-left: 40px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
+    .highlight-animation { animation: highlight 0.5s ease-in-out; }
 
     .typing-dot {
       width: 8px;
@@ -80,14 +42,8 @@
       border-radius: 50%;
       animation: typing 1.4s infinite;
     }
-
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
     @keyframes typing {
       0%, 60%, 100% {
@@ -98,14 +54,9 @@
       }
     }
 
-    .inverted-emoji {
-      display: inline-block;
-      transform: scaleX(-1);
-    }
-
     .highlighted {
-      background-color: #fef08a !important;
-      font-weight: 500;
+      background-color: #bae6fd !important;
+      font-weight: 700;
     }
 
     .fully-selected {
@@ -115,12 +66,11 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen flex flex-col">
   
-  <!--Header-->
   <header class="bg-white shadow-md py-6 px-4 top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
       <div class="flex-shrink min-w-0">
         <h1 class="text-sm md:text-xl font-bold text-gray-800 flex items-center gap-1 md:gap-2 relative group">
-          <span class="inverted-emoji">🚩</span>MisFlagger 🚩
+          <span class="inline-block scale-x-[-1]">🚩</span>MisFlagger 🚩
           <span class="absolute left-1/2 translate-y-1/2 -bottom-10 md:-bottom-10 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
             Spot misinformation before it spreads!
           </span>
@@ -151,8 +101,6 @@
   </header>
 
   <main class="flex-1 flex items-center justify-center p-4">
-    
-    <!--WELCOME SCREEN-->
     <div id="welcomeScreen" class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-4">Save the family group chat from misinfo!</h2>
@@ -162,9 +110,9 @@
         <div class="bg-blue-50 p-4 rounded-lg">
           <h3 class="font-bold mb-2">📱 How to play:</h3>
           <ul class="space-y-2 text-sm">
-            <li>• You'll see messages in a family group chat.</li>
-            <li>• <strong>Click on a message to analyse it.</strong></li>
-            <li>• Click the highlighted text in the message that contains red flags.</li>
+            <li>• You'll see messages in a family group chat. <strong>Click on a message to analyse it.</strong></li>
+            <li>• Double click the highlighted text in the message that contains red flags.</li>
+            <li>• If the highligted text is yellow, it's a red herring. If the text is red, you got a red flag!</li>
             <li>• Once all flags are found, you'll send a response.</li>
             <li>• Complete <strong>10 messages</strong> to see your score!</li>
           </ul>
@@ -173,22 +121,20 @@
         <div class="bg-purple-50 p-4 rounded-lg">
           <h3 class="font-bold mb-2">👀 What to look for:</h3>
           <ul class="space-y-2 text-sm">
-            <li>• ALL CAPS and excessive punctuation (!!!)</li>
+            <li>• ALL CAPS and excessive punctuation!?!</li>
             <li>• Urgency tactics ("CLICK NOW!", "gone in <a style="cursor: pointer" onclick="javascript: window.open('https://youtu.be/dQw4w9WgXcQ/','_blank');">6-7</a> hours")</li>
             <li>• Promises that seem too good to be true</li>
-            <li>• Suspicious links that are unsecure or seems fake</li>
-            <li>• Conspiracy theories and fear-mongering</li>
+            <li>• Suspicious links or Conspiracy theories</li>
           </ul>
         </div>
       </div>
       
       <!--START GAME BUTTON-->
-      <button onclick="startGame()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-full font-bold text-lg hover:shadow-lg transition-all hover:-translate-y-0.5">
+      <button onclick="startGame()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-full font-bold text-lg hover:shadow-lg transition-all hover:-translate-y-0.5">
         Start
       </button>
     </div>
 
-    <!--GAME SCREEN-->
     <div id="gameScreen" class="hidden w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col" style="height: 75vh; max-height: 650px;">
       <!--CHAT HEADER - CHANGE THE HEADER COLOUR HERE-->
       <div class="bg-gradient-to-r from-blue-500 to-violet-600 p-4 flex items-center gap-3 text-white">
@@ -197,7 +143,7 @@
         </div>
         <div>
           <h3 class="font-bold">Family Group ❤️</h3>
-          <p class="text-xs opacity-90">15 members</p>
+          <p class="text-xs opacity-90">10 members</p>
         </div>
       </div>
 
@@ -210,12 +156,11 @@
       <div id="chatContainer" class="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-3" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiNmMGYwZjAiIGZpbGw9Im5vbmUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0idXJsKCNhKSIvPjwvc3ZnPg==');">
       </div>
 
-      <!--ANALYSIS PANEL-->
       <div id="analysisPanel" class="hidden bg-white border-t-2 border-gray-200 p-4">
         <p class="text-sm font-semibold text-gray-700 mb-2">
-          <span class="inverted-emoji">🚩</span> Click on the parts of the message that are red flags:
+          <span class="inline-block scale-x-[-1]">🚩</span> Click on the parts of the message that are red flags:
         </p>
-        <div id="messageAnalysis" class="bg-gray-50 rounded-lg p-3 mb-3 text-sm leading-relaxed"></div>
+        <div id="messageAnalysis" class="bg-gray-50 rounded-lg p-3 mb-3 text-sm leading-relaxed select-none"></div>
         <div class="flex justify-between items-center">
           <div id="flagCounter" class="text-xs text-gray-600">Found: <span class="font-bold">0/3</span></div>
           <button id="submitAnalysis" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-6 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed" disabled>
@@ -225,7 +170,6 @@
       </div>
     </div>
 
-    <!--RESULTS SCREEN-->
     <div id="resultsScreen" class="hidden max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
       <div class="text-center mb-6">
         <div id="resultEmoji" class="text-6xl mb-4">🏆</div>
@@ -245,7 +189,6 @@
     </div>
   </main>
 
-  <!--Footer and links-->
   <footer class="bg-white border-t border-gray-200 py-4 px-6 mt-auto">
     <div class="max-w-6xl mx-auto text-center text-xs md:text-sm text-gray-600">
       <p class="mb-1"><strong>MisFlagger</strong> - An educational game for misinformation awareness | Best played on PC!</p>
@@ -277,8 +220,9 @@
     let currentMessage = null;
     let messageClickable = true;
     
+    //edit isflag tag, clickable for red herrings and messages themselves here
     const messages = [
-      {//set
+      {
         sender: "Veliappachan",
         avatar: "👴",
         forwarded: false,
@@ -289,7 +233,7 @@
           'Sorry about that, will be careful!'
         ],
         segments: [
-          { text: "OMG!!", isFlag: true, type: "urgency" },
+          { text: "OMG!!", isFlag: true },
           { text: "Scientists discovered", isFlag: false, clickable: true },
           { text: "that microwaving food causes cancer!!", isFlag: true, type: "unverified" },
           { text: "My friend's doctor confirmed it.", isFlag: false, clickable: true },
@@ -297,34 +241,34 @@
           { text: "before it's too late!!!", isFlag: false, clickable: true },
           { text: "Share with everyone!!!", isFlag: true, type: "pressure" }
         ],
-        response: "Appacha, this claim about microwaved food causing cancer isnt backed by scientific proof. This is <strong>classic misinformation</strong> made to steer people the wrong way. And words like \"OMG\" and \"NOW\" might <strong>pressure other people to forward it</strong> more. pls <strong>check verified medical sources</strong> before sending any information in..."
+        response: "Appacha, this claim about microwaved food causing cancer isnt backed by scientific proof. This is <strong>fabricated content</strong> made to steer people the wrong way. And words like \"OMG\" and \"NOW\" might <strong>pressure other people to forward it</strong> more. pls <strong>check verified medical and scientific sources</strong> before sending any information in... 😥"
       },
-      {//set
-        sender: "Joshua chettan",
+      {
+        sender: "Big Bro Babu",
         avatar: "👨",
         forwarded: false,
-        text: "NO WAY GUYS!! Found this top tier investment - make $10,000 in 2 weeks GUARANTEED! My buddy made $50k already! Only 5 spots left! Click: bit.ly/fast-money",
+        text: "Guys! I found this top tier investment - made $10,000 in 2 weeks GUARANTEED! My buddy made $50k already! Only 5 spots left! Click: bit.ly/fast-money",
         reactions: [
           'Ahh, it makes sense now...',
           'You\'re right. I might need to make a phone call 🙃',
           'Good catch, almost fell for it 🫠'
         ],
         segments: [
-          { text: "NO WAY GUYS!!", isFlag: false, clickable: true },
-          { text: "Found this top tier investment -", isFlag: false, clickable: true },
-          { text: "make $10,000 in 2 weeks GUARANTEED!", isFlag: true, type: "too-good" },
+          { text: "Guys!", isFlag: false, clickable: true },
+          { text: "I found this top tier investment -", isFlag: false, clickable: true },
+          { text: "make $10,000 in 2 weeks GUARANTEED!    ", isFlag: true, type: "too-good" },
           { text: "My buddy made $50k already!", isFlag: false, clickable: true },
           { text: "Only 5 spots left!", isFlag: true, type: "scarcity" },
           { text: "Click:", isFlag: false },
           { text: "bit.ly/fast-money", isFlag: true, type: "suspicious-link" }
         ],
-        response: "That buddy might be lucky now, but he might lose way more <strong>if he clicks that link</strong>. This message screams <strong>unrealistic profits within a short time</strong>. And that <strong>\"5 spots left\"</strong> trick and not to mention that <strong>suspicious link</strong> are textbook misinformation tactics."
+        response: "That buddy might be lucky now, but he might lose way more <strong>if he clicks that link</strong> 😐. This message screams <strong>unrealistic profits within a short time</strong>. And that <strong>\"5 spots left\"</strong> trick and not to mention that <strong>suspicious link</strong> are textbook misinformation tactics 😉"
       },
-      {//set
+      {
         sender: "Molly Mol",
         avatar: "👧",
         forwarded: true,
-        text: "BREAKING NEWS FROM CCN: Government is putting GPS chips in grocery receipts! Don't touch them! Tonald S. Drump is behind all this! WAKE UP PEOPLE!!!",
+        text: "BREAKING NEWS FROM CCN: The government is putting GPS chips in grocery receipts! Don't touch them! Tonald S. Drump is behind it! WAKE UP PEOPLE!!!",
         reactions: [
           'Oh no sorry about that 🫠',
           'Guess those receipts are alright then 😅',
@@ -332,18 +276,18 @@
         ],
         segments: [
           { text: "BREAKING NEWS FROM CCN:", isFlag: true, clickable: true },
-          { text: "Government is putting tracking chips in grocery receipts!", isFlag: true, type: "conspiracy" },
-          { text: "Don't touch them!", isFlag: false, type: "fear" },
-          { text: "Tonald S. Drump is behind all this!", isFlag: true, type: "conspiracy" },
+          { text: "The government is putting tracking chips in grocery receipts!", isFlag: true, type: "conspiracy" },
+          { text: "Don't touch them!", isFlag: false, clickable: true},
+          { text: "Tonald S. Drump is behind it!", isFlag: true, type: "conspiracy" },
           { text: "WAKE UP PEOPLE!!!", isFlag: false, clickable: true }
         ],
-        response: "Molly, this is unwanted conspiracy theories at work by <strong>impersonating verified news sources</strong>. Besides this theory has <strong>zero backing</strong> at best! and it <strong>plants fear</strong> and it <strong>directs anger</strong> towards an unknowing person."
+        response: "Molly, this is unwanted conspiracies at work by <strong>impersonating verified news sources</strong>. Besides this theory has <strong>zero backing</strong> at best! and it <strong>plants fear</strong> and it <strong>directs anger</strong> towards an unknowing person."
       },
-      {//set 
+      {
         sender: "Sosamma aunty",
         avatar: "👩",
         forwarded: true,
-        text: "Everyone NEEDS to see this! Eating 3 apples daily REVERSES aging - look 20 years younger! Doctors HATE this trick! Forward NOW!!!",
+        text: "Everyone NEEDS to see this! Eating 3 apples daily REVERSES aging - look 20 years younger! Doctors HATE this trick! Send to 20 people and we'll reveal the next hack!!!",
         reactions: [
           'Oh my! Thank you dear',
           'My god, I\'ll be more careful',
@@ -354,50 +298,51 @@
           { text: "Eating 3 apples daily", isFlag: false, clickable: true },
           { text: "REVERSES aging - look 20 years younger!", isFlag: true, type: "miracle-claim" },
           { text: "Doctors HATE this trick!", isFlag: true, type: "clickbait" },
-          { text: "Forward NOW!!!", isFlag: true, type: "pressure" }
+          { text: "Send to 20 people", isFlag: true, type: "pressure" },
+          { text: "and we'll reveal the next hack!!!", isFlag: false, clickable: true}
         ],
-        response: "Aunty, even though an apple a day keeps the doctor away, it wont make you immortal 😂. These are classic <strong>clickbait tactics</strong> to <strong>waste people's time</strong> and the message is even more bogus with the <strong>\"Forward NOW\"</strong>. Still eat your veggies, guys 💪"
+        response: "Aunty, even though an apple a day keeps the doctor away, it wont make you immortal 😂. These are classic <strong>clickbait tactics</strong> to <strong>waste people's time</strong> and the message is even encouraging to <strong>forward it more by offering more time-wasting facts</strong>. Still eat your veggies, guys 💪"
       },
-      {//set
+      {
         sender: "Vignesh Vazha",
         avatar: "🧑",
         forwarded: false,
-        text: "Family ALERT!!! All HDFC bank accounts will be inactive on the 6th of September! Make all your transactions before that day!!! Here are more details: hdfc-bank.xyz/urgent. FORWARD NOW!",
+        text: "No WAY! Prince William showed the middle finger to the media! This means he's trying to cover up for a scandal, it has to be! Spread the news!!!",
         reactions: [
           'oops i guess you\'re right!',
-          'I guess the banks will be open then 😮‍💨',
+          'Ah the picture was taken from another angle 😅',
           '😮😮'
         ],
         segments: [
-          { text: "Family ALERT!!!", isFlag: false, clickable: true },
-          { text: "All HDFC bank accounts will be", isFlag: false, clickable: true },
-          { text: "inactive on the 6th of September! ", isFlag: false, type: "panic" },
-          { text: "Make all your transactions before that day!!!", isFlag: true, clickable: true },
-          { text: "Here are more details: hdfc-bank.xyz/urgent. ", isFlag: true, type: "personal-info" },
-          { text: "FORWARD NOW", isFlag: true, type: "suspicious-domain" }
+          { text: "No WAY!", isFlag: false, clickable: true },
+          { text: "Prince William showed the", isFlag: false, clickable: true },
+          { text: "middle finger to the media!", isFlag: true, clickable: true },
+          { text: "This means he's trying to cover up a scandal,", isFlag: true, clickable: true },
+          { text: "it has to be!", isFlag: false, clickable: true },
+          { text: "Spread the news!!!", isFlag: true}
         ],
-        response: "This is false, I just checked the official HDFC bank and there is <strong>no such news</strong> of all accounts being inactive on that date. This message invokes <strong>fear</strong> for HDFC account holders and even directs you to a <strong>fake bank site</strong>."
+        response: "This is false, I just checked online and it turns out the news is from <strong>manipulated content</strong>. Prince William actually answered a question with 3 fingers up as an answer, not with the middle finger 😅 This is a message spreads <strong>anger and unwanted rumours</strong> and it can even be said that the reporting news source can be <strong>bias</strong>."
       },
-      {//set
+      {
         sender: "Bobby uncle",
         avatar: "👨‍🦲",
-        forwarded: false,
-        text: "Saw on Facebook that drinking neem oil with juice cures ALL diseases! Pharmacies are scamming us! Someone forwarded it, so must be true!",
+        forwarded: true,
+        text: "Tasty Treats is shutting down due to BAD FOOD QUALITY! The halwa contains parasites that cause immediate stomach ache! Someone forwarded it on facebook, so must be true!",
         reactions: [
-          '👍👍👍',
-          'You\'re right, my bad',
+          'Really?!',
+          'Have to be more careful next time...',
           '🫡'
         ],
         segments: [
-          { text: "Saw on Facebook that", isFlag: false, clickable: true },
-          { text: "drinking neem oil with juice cures ALL diseases!", isFlag: true, type: "dangerous" },
-          { text: "Pharmacies are scamming us!", isFlag: true, type: "conspiracy" },
-          { text: "Someone forwarded it,", isFlag: false, clickable: true },
-          { text: "so it must be true!", isFlag: true, type: "chain-message" }
+          { text: "Tasty Treats is shutting down due to BAD FOOD QUALITY!", isFlag: true, clickable: true },
+          { text: "The halwa contains parasites", isFlag: true},
+          { text: "that cause immediate stomach ache", isFlag: false, clickable: true },
+          { text: "Someone forwarded it on facebook,", isFlag: false, clickable: true },
+          { text: "so must be true!", isFlag: true }
         ],
-        response: "Uncle, this is clearly <strong>absurd advice</strong> and just because someone forwarded it on social media, <strong>doesn't make it true</strong>. We should rely on medical facts, not medical conspiracies. 🤔"
+        response: "Uncle, this is actually <strong>harmful propaganda</strong> coming from the shop's competitor - Sweets & stuff 👀 The parasites is a claim which was debunked by Tasty Treats by bringing a food inspector to check their product. And just because someone forwarded it on social media, <strong>doesn't make it true</strong>."
       },
-      {//set
+      {
         sender: "Scandalous Sam",
         avatar: "🤩",
         forwarded: true,
@@ -408,21 +353,21 @@
           'Ah that makes more sense!'
         ],
         segments: [
-          { text: "HOT NEWS!! ", isFlag: false, type: "too-good" },
+          { text: "HOT NEWS!! ", isFlag: false},
           { text: "Mruno bars murdered Deline Cion", isFlag: true, clickable: true },
-          { text: "in broad daylight!", isFlag: false, type: "personal-info" },
+          { text: "in broad daylight!", isFlag: false },
           { text: "😱😱😱!!", isFlag: false, clickable: false },
           { text: "This has to be true!!", isFlag: false, clickable: true },
           { text: "Click the link to learn more: www.celebscoop.com/mrunobars!!", isFlag: true, type: "suspicious-domain" },
           { text: "FORWARD PEOPLE, FORWARD!!", isFlag: true, clickable: true}
         ],
-        response: "Don't believe every scandal out there. I looked it up and it's a <strong>popular hoax</strong> going around the internet at the moment. That link can look secure and real, but it might be a <strong>tabloid page or just a misinformation page</strong> altogether."
+        response: "Don't believe every scandal out there, sam 😅 I looked it up and it's a <strong>popular hoax</strong> going around the internet at the moment. That link can look secure and real, but it might be a <strong>tabloid page or just a misinformation page</strong> altogether 🫤"
       },
-      {//set
+      {
         sender: "Amma",
         avatar: "👵",
         forwarded: true,
-        text: "SHOCKING! Vaccines contain mRNA which causes AUTISM!! Secret whistleblower revealed this!! DELETE if you vaccinated! SHARE IMMEDIATELY!!!",
+        text: "SHOCKING! David Paul, CEO of BigTech Inc collapsed in the street! He is diagnosed with diabetes and COO Chris Topher will take over!! More at www.thedailyrobin.com/DavidPaul",
         reactions: [
           'Thanks for letting us know!',
           'Oh dear, I should check before sharing',
@@ -430,51 +375,53 @@
         ],
         segments: [
           { text: "SHOCKING!", isFlag: false, clickable: true },
-          { text: "Vaccines contain", isFlag: false, clickable: true },
-          { text: "mRNA which causes AUTISM!!", isFlag: true, type: "conspiracy" },
-          { text: "Secret whistleblower revealed this!!", isFlag: true, type: "unverified" },
-          { text: "DELETE if you vaccinated!", isFlag: false, clickable: true },
-          { text: "SHARE IMMEDIATELY!!!", isFlag: true, type: "pressure" }
+          { text: "David Paul, CEO of BigTech Inc", isFlag: false, clickable: true },
+          { text: "collapsed in the street!", isFlag: true },
+          { text: "He is diagnosed with diabetes", isFlag: true, type: "unverified" }, 
+          { text: "and COO Chris Topher will take over!!", isFlag: false, clickable: true },
+          { text: "More at www.thedailyrobin.com/DavidPaul", isFlag: true }
         ],
-        response: "Amma, I dont think thats how vaccines work. Messages like this have <strong>absurd claims</strong>, <strong>unverified \"professionals\"</strong> and an <strong>urgency to share the message</strong> to top it all off. We've gotta be more careful next time."
+        response: "Amma, this news headline is false. This CEO was actually doing a charity marathon and got tired and sat on a kerb 🙏 The photo with the headline is right, but the news itself is misinformation with made up diagnoses - classic <strong>false context</strong>. Plus the link is to a <strong>popular misinformation/satire newsletter</strong> made to confuse or fool people 🤗"
       },
-      {//set
+      {
         sender: "Riya",
         avatar: "👧",
-        text: "BREAKING NEWS!!! The Pentagon has caught fire! Millions of documents BURNT!! Saw a video on YouTube (deleted = they're hiding the facts!!!) Send to 50 people NOW!!!",
+        forwarded: false,
+        text: "Oh my god! An ASTEROID is coming for Earth! NASA confirmed it! The final day is on October 25th!!! Check out more at www.newsflasher.com! Forward NOW and say your prayers!",
         reactions: [
-          'I guess the pentagon is safe then.',
+          'I guess the Earth is safe then.',
           'Ah, i\'ll do my research next time.',
           'Oh, you\'re right there.'
         ],
         segments: [
-          { text: "BREAKING NEWS!!!", isFlag: false, clickable: true },
-          { text: "The Pentagon has", isFlag: false, clickable: true },
-          { text: "caught fire! Millions of documents BURNT!!", isFlag: true, type: "political-misinfo" },
-          { text: "Saw a video on YouTube", isFlag: false, clickable: true },
-          { text: "(deleted = they're hiding the facts!!!)", isFlag: true, type: "conspiracy" },
-          { text: "Send to 50 people NOW!!!", isFlag: true, type: "chain-pressure" }
+          { text: "Oh my god!", isFlag: false, clickable: true },
+          { text: "An ASTEROID is coming for Earth!", isFlag: false, clickable: true },
+          { text: "NASA confirmed it!", isFlag: true },
+          { text: "The final day is on October 25th!!!", isFlag: true, clickable: true },
+          { text: "Check out more at www.newsflasher.com!", isFlag: false, clickable: true },
+          { text: "Forward NOW and say your prayers!", isFlag: true, type: "chain-pressure" }
         ],
-        response: "This has <strong>conspiracy theory</strong> written all over it, and you never know if people will believe it. The message is also asking us to <strong>send this to 50 other people</strong> which doesn't help it's case. Let's look onto official sources instead!"
+        response: "When I clicked the link, the headline is <strong>very misleading</strong>. NASA confirmed that an asteroid would just pass by Earth, not actually hit it 💀 This is an example of <strong>false connections</strong>, where misleading titles lead to the actual content. Plus the <strong>made up date</strong> with the <strong>fear inducing \"Forward NOW\"</strong> is quite extreme."
       },
-      {//set
+      {
         sender: "Crypto Chettan",
         avatar: "😎",
-        text: "Secret Bitcoin bot GUARANTEES 1000% profit!!! NO RISK! Expert friend confirms! Only works if you sign up in 3 hours! Link: crypto-gains.io",
+        forwarded: false,
+        text: "Bros & Gals, this stock is GUARANTEED to 500% profit!!! NO RISK, FULL REWARD! This is the latest and greatest predictions from Upstocz! Link: crypto-gains.io",
         reactions: [
           'Fair enough 🫡🤔',
           'u rite broo!',
           'Damn, it almost got me!'
         ],
         segments: [
-          { text: "Secret Bitcoin bot", isFlag: false, clickable: true },
-          { text: "GUARANTEES 1000% profit!!! NO RISK!", isFlag: true, type: "too-good" },
+          { text: "Bros & Gals,", isFlag: false, clickable: true },
+          { text: "this stock is GUARANTEED to 500% profit!!! NO RISK,", isFlag: true },
           { text: "Expert friend confirms!", isFlag: false, clickable: true },
           { text: "Only works if you sign up in 3 hours!", isFlag: true, type: "urgency" },
           { text: "Link:", isFlag: false },
           { text: "crypto-gains.io", isFlag: true, type: "suspicious-link" }
         ],
-        response: "<strong>Crypto scams</strong> can be common, especially with <strong>pump and dump schemes</strong>, which this might be. It's important to do our research and not believe <strong>insane profit margins with zero risks</strong>. Plus that 3 hours <strong>deadline isn't real</strong>, it's just there to click that crappy link more faster."
+        response: "This is probably a bogus stock that <strong>an imposter</strong>, who is impersonating Upstox would want to sell to unsuspecting victims 📉 And the stock claiming to give <strong>huge profit margins</strong> is suspicious. Not to mention the <strong>weird and unsecure link</strong>."
       }
     ];
 
@@ -508,7 +455,7 @@
       if (!msg.sender.includes('Unknown') && !msg.sender.includes('+')) {
         const typingDiv = document.createElement('div');
           typingDiv.id = 'typingIndicator';
-          typingDiv.className = 'typing-indicator';
+          typingDiv.className = 'flex gap-[4px] px-[16px] py-[12px] bg-[white] rounded-[12px] w-[fit-content] ml-[40px] [box-shadow:0_1px_3px_rgba(0,_0,_0,_0.1)]';
           typingDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
           chatContainer.appendChild(typingDiv);
           chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -518,7 +465,7 @@
         document.getElementById('typingIndicator')?.remove();
       
       const msgDiv = document.createElement('div');
-      msgDiv.className = 'message-enter flex items-start gap-2';
+      msgDiv.className = 'animate-[slideIn_0.3s_ease-out] flex items-start gap-2';
       msgDiv.id = `message-${currentMessageIndex}`;
       //Chat bubble code - change hover: chat border colour in 4th divTag
       msgDiv.innerHTML = `
@@ -558,7 +505,7 @@
         const span = document.createElement('span');
         span.textContent = segment.text;
         if (segment.isFlag || segment.clickable) {
-          span.className = 'cursor-pointer hover:bg-yellow-200 transition-colors rounded px-1';
+          span.className = 'cursor-pointer hover:bg-sky-200 transition-colors rounded px-1'; //to change colour of hover
           span.onclick = () => selectFlag(span, i);
         }
         messageAnalysis.appendChild(span);
@@ -572,15 +519,15 @@
     function selectFlag(element, segmentIndex) {
       const segment = currentMessage.segments[segmentIndex];
       
-      // If already fully selected, ignore
       if (element.classList.contains('fully-selected')) return;
       
-      // If already highlighted (first click), confirm selection (second click)
+      //first click gives "highlighted" colour and second click confirms either red herring or red flag, so corresponding colour changes below
       if (element.classList.contains('highlighted')) {
-        element.classList.remove('highlighted', 'hover:bg-yellow-200');
+        element.classList.remove('highlighted');
         
         if (segment.isFlag) {
-          element.classList.add('bg-red-100', 'font-semibold', 'fully-selected');
+          //below bg is the colour change for correct red flag
+          element.classList.add('bg-red-300', 'font-semibold', 'fully-selected');
           foundFlags++;
           updateFlagCounter();
           
@@ -588,8 +535,8 @@
             document.getElementById('submitAnalysis').disabled = false;
           }
         } else {
-          // Wrong selection
-          element.classList.add('bg-red-500', 'text-white', 'fully-selected');
+          //below bg is the colour change for red herring
+          element.classList.add('bg-yellow-200', 'text-black', 'fully-selected');
           wrongClicksCount++;
           
           setTimeout(() => {
@@ -597,14 +544,18 @@
             element.classList.add('line-through', 'opacity-50');
           }, 500);
         }
-      } else {
-        // First click - just highlight
-        element.classList.add('highlighted', 'bg-yellow-300');
+      }
+      else {
+        document.querySelectorAll('#messageAnalysis .highlighted').forEach(el => {
+          el.classList.remove('highlighted');
+        });
+
+        element.classList.add('highlighted');
       }
     }
 
     function updateFlagCounter() {
-      //We can change the number of red flags in each message by removing isflag tag, will automatically update
+      //the number of red flags in each message is changed by true/false the isflag tag, it'll will automatically update
       const totalFlags = currentMessage.segments.filter(s => s.isFlag).length;
       document.getElementById('flagCounter').innerHTML = `Found: <span class="font-bold">${foundFlags}/${totalFlags}</span>`;
     }
@@ -625,7 +576,7 @@
       
       const chatContainer = document.getElementById('chatContainer');
       const responseDiv = document.createElement('div');
-      responseDiv.className = 'message-enter flex justify-end';
+      responseDiv.className = 'animate-[slideIn_0.3s_ease-out] flex justify-end';
       responseDiv.innerHTML = `
         <div class="chat-bubble bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl rounded-tr-none p-3 shadow-sm">
           <p class="text-sm">${currentMessage.response}</p>
@@ -639,7 +590,7 @@
 
         if(reaction) {
           const reactionDiv = document.createElement('div');
-          reactionDiv.className = 'message-enter flex items-start gap-2';
+          reactionDiv.className = 'animate-[slideIn_0.3s_ease-out] flex items-start gap-2';
           reactionDiv.innerHTML = `
             <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
               ${currentMessage.avatar}
@@ -656,21 +607,20 @@
         }
       }, 3000); //reactions timing; change along with showNextMessage timing to prevent message overlap
 
-      //Reset wrong clicks counter
+      //Reset wrong clicks counter for next message so no additive penalty
       wrongClicksCount = 0;
       
       document.getElementById('analysisPanel').classList.add('hidden');
       document.getElementById('submitAnalysis').disabled = true;
       
       currentMessageIndex++;
-      setTimeout(() => showNextMessage(), 4000); //adjust next message timing
+      setTimeout(() => showNextMessage(), 4000); //adjust next message timing based on reactions timing
     };
 
     function toggleAccordion(index) {
       const content = document.getElementById(`content-${index}`);
       const arrow = document.getElementById(`arrow-${index}`);
       
-      // Close all other accordions
       gameLog.forEach((_, i) => {
         if (i !== index) {
           const otherContent = document.getElementById(`content-${i}`);
@@ -680,7 +630,6 @@
         }
       });
       
-      // Toggle current accordion
       if (content.classList.contains('hidden')) {
         content.classList.remove('hidden');
         arrow.classList.add('rotate-180');
@@ -693,7 +642,6 @@
     function showResults() {
       document.getElementById('gameScreen').classList.add('hidden');
       document.getElementById('resultsScreen').classList.remove('hidden');
-      
       const maxScore = messages.reduce((sum, msg) => sum + (msg.segments.filter(s => s.isFlag).length * 10), 0);
       const percentage = Math.round((score / maxScore) * 100);
       
