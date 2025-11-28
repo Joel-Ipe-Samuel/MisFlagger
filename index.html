@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--title and favicon here-->
   <title>MisFlagger</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!--change the font with web embed name in LN14-->
-  <style>
+  <!--font taken from google fonts embed-->
+  <style>/*animations and minimal styles*/
     * { font-family: 'Space Grotesk', sans-serif; }
 
     html { /*hiding the default scrollbar*/
@@ -66,11 +67,13 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen flex flex-col">
   
+  <!--header - game name on the left and CDF logo SVG on the right-->
   <header class="bg-white shadow-md py-6 px-4 top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
       <div class="flex-shrink min-w-0">
         <h1 class="text-sm md:text-xl font-bold text-gray-800 flex items-center gap-1 md:gap-2 relative group">
           <span class="inline-block scale-x-[-1]">🚩</span>MisFlagger 🚩
+          <!--hover message in game name-->
           <span class="absolute left-1/2 translate-y-1/2 -bottom-10 md:-bottom-10 bg-gray-800 text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
             Spot misinformation before it spreads!
           </span>
@@ -79,7 +82,7 @@
       <div class="flex items-center flex-shrink-0">
         <div class="w-25 h-7 md:h-7 rounded-lg flex items-center justify-center text-gray-500">
           <a href="https://citizendigitalfoundation.org" target="_blank">
-            <!--CDF LOGO SVG DON'T CHANGE-->
+            <!--CDF LOGO SVG-->
             <svg width="175" height="120" viewBox="0 0 848 283" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_4_5)">
                 <rect width="847.18" height="282.12" fill="white"/>
@@ -108,6 +111,7 @@
       
       <div class="space-y-4 text-left text-gray-700 mb-8">
         <div class="bg-blue-50 p-4 rounded-lg">
+          <!--Game rules-->
           <h3 class="font-bold mb-2">📱 How to play:</h3>
           <ul class="space-y-2 text-sm">
             <li>• You'll see messages in a family group chat. <strong>Click on a message to analyse it.</strong></li>
@@ -118,10 +122,12 @@
           </ul>
         </div>
         
+        <!--What to look out for-->
         <div class="bg-purple-50 p-4 rounded-lg">
           <h3 class="font-bold mb-2">👀 What to look for:</h3>
           <ul class="space-y-2 text-sm">
             <li>• ALL CAPS and excessive punctuation!?!</li>
+            <!--easter egg :> -->
             <li>• Urgency tactics ("CLICK NOW!", "gone in <a style="cursor: pointer" onclick="javascript: window.open('https://youtu.be/dQw4w9WgXcQ/','_blank');">6-7</a> hours")</li>
             <li>• Promises that seem too good to be true</li>
             <li>• Suspicious links or Conspiracy theories</li>
@@ -147,15 +153,16 @@
         </div>
       </div>
 
-      <!--PROGRESS BAR - UPDATED WITH INCREMENTAL %-->
+      <!--PROGRESS BAR - UPDATED WITH INCREMENTAL % of messages completed-->
       <div class="bg-blue-100 h-2">
         <div id="progressBar" class="bg-gradient-to-r from-blue-600 to-purple-600 h-full transition-all duration-500" style="width: 0%"></div>
       </div>
 
-      <!--CHAT BACKGROUND PLACE-->
+      <!--CHAT BACKGROUND-->
       <div id="chatContainer" class="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-3" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiNmMGYwZjAiIGZpbGw9Im5vbmUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0idXJsKCNhKSIvPjwvc3ZnPg==');">
       </div>
 
+      <!--Analysis panel container-->
       <div id="analysisPanel" class="hidden bg-white border-t-2 border-gray-200 p-4">
         <p class="text-sm font-semibold text-gray-700 mb-2">
           <span class="inline-block scale-x-[-1]">🚩</span> Click on the parts of the message that are red flags:
@@ -170,6 +177,7 @@
       </div>
     </div>
 
+    <!--Results page - fetched from script-->
     <div id="resultsScreen" class="hidden max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
       <div class="text-center mb-6">
         <div id="resultEmoji" class="text-6xl mb-4">🏆</div>
@@ -189,10 +197,13 @@
     </div>
   </main>
 
+  <!--footer-->
   <footer class="bg-white border-t border-gray-200 py-4 px-6 mt-auto">
     <div class="max-w-6xl mx-auto text-center text-xs md:text-sm text-gray-600">
+      <!--footer tagline-->
       <p class="mb-1"><strong>MisFlagger</strong> - An educational game for misinformation awareness | Best played on PC!</p>
       <p>
+        <!--links and animation in span tags-->
         By <a href="https://linkedin.com/in/joel-ipe-samuel" target="_blank" class="text-sm cursor-pointer relative font-semibold text-blue-600 group px-1 py-1 inline-block">
         <span class="relative z-10">Joel Ipe Samuel</span>
         <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span></a> | 
@@ -204,9 +215,6 @@
         <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span></a> 
         <a href="https://citizendigitalfoundation.org/terms-and-conditions" target="_blank" class="text-sm cursor-pointer relative font-semibold text-blue-600 group px-1 py-1 inline-block">
         <span class="relative z-10">Terms & Conditions</span>
-        <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span></a> | 
-        <a href="https://vercel.com/legal/privacy-policy" target="_blank" class="text-sm cursor-pointer relative font-semibold text-blue-600 group px-1 py-1 inline-block">
-        <span class="relative z-10">Hosted with Vercel - Privacy Policy</span>
         <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span></a>
       </p>
     </div>
@@ -220,7 +228,10 @@
     let currentMessage = null;
     let messageClickable = true;
     
-    //edit isflag tag, clickable for red herrings and messages themselves here
+    //messages array -> the following can be edited - sender, avatar, if the message is forwarded or not, message text, reactions to the messages, the segments which can be edited to be red flags or red herrings and the player response. innerHTML is enabled. 
+
+    //segments - if a segment is a red flag, mark true for isFlag tag and add type (optional) for readability. if isFlag is true, don't need to mention clickable: true/false
+    //set clickable: true and isFlag: false for red herrings. 
     const messages = [
       {
         sender: "Veliappachan",
@@ -425,6 +436,7 @@
       }
     ];
 
+    //gets random reaction from reaction pool
     function getReaction(message) {
       if (!message.reactions) return null;
       return message.reactions[Math.floor(Math.random()*message.reactions.length)];
@@ -442,6 +454,7 @@
         return;
       }
 
+      //tracks progress for progress bar
       const progress = ((currentMessageIndex + 1) / messages.length) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
 
@@ -452,7 +465,8 @@
       
       const chatContainer = document.getElementById('chatContainer');
 
-      if (!msg.sender.includes('Unknown') && !msg.sender.includes('+')) {
+      //enables typing indicator animation 
+      if (msg.sender) {
         const typingDiv = document.createElement('div');
           typingDiv.id = 'typingIndicator';
           typingDiv.className = 'flex gap-[4px] px-[16px] py-[12px] bg-[white] rounded-[12px] w-[fit-content] ml-[40px] [box-shadow:0_1px_3px_rgba(0,_0,_0,_0.1)]';
@@ -464,6 +478,7 @@
       setTimeout(() => {
         document.getElementById('typingIndicator')?.remove();
       
+      //message structure and animation
       const msgDiv = document.createElement('div');
       msgDiv.className = 'animate-[slideIn_0.3s_ease-out] flex items-start gap-2';
       msgDiv.id = `message-${currentMessageIndex}`;
@@ -505,7 +520,7 @@
         const span = document.createElement('span');
         span.textContent = segment.text;
         if (segment.isFlag || segment.clickable) {
-          span.className = 'cursor-pointer hover:bg-sky-200 transition-colors rounded px-1'; //to change colour of hover
+          span.className = 'cursor-pointer hover:bg-sky-200 transition-colors rounded px-1'; //to change colour of segment hover
           span.onclick = () => selectFlag(span, i);
         }
         messageAnalysis.appendChild(span);
@@ -516,6 +531,7 @@
 
     let wrongClicksCount = 0;
 
+    //when selecting a flag and the colour code - change them here
     function selectFlag(element, segmentIndex) {
       const segment = currentMessage.segments[segmentIndex];
       
@@ -546,6 +562,7 @@
         }
       }
       else {
+        //logic for removing the highlighted when other segment is clicked
         document.querySelectorAll('#messageAnalysis .highlighted').forEach(el => {
           el.classList.remove('highlighted');
         });
@@ -555,11 +572,12 @@
     }
 
     function updateFlagCounter() {
-      //the number of red flags in each message is changed by true/false the isflag tag, it'll will automatically update
+      //the number of red flags in each message is changed by true/false the isflag tag, it'll will automatically update here
       const totalFlags = currentMessage.segments.filter(s => s.isFlag).length;
       document.getElementById('flagCounter').innerHTML = `Found: <span class="font-bold">${foundFlags}/${totalFlags}</span>`;
     }
 
+    //when "submit response" is clicked, score is calculated and then response is sent below
     document.getElementById('submitAnalysis').onclick = function() {
       const totalFlags = currentMessage.segments.filter(s => s.isFlag).length;
       const points = (foundFlags * 10) - (wrongClicksCount*5);
@@ -574,6 +592,7 @@
         wrongClicks: wrongClicksCount
       });
       
+      //player response message structure 
       const chatContainer = document.getElementById('chatContainer');
       const responseDiv = document.createElement('div');
       responseDiv.className = 'animate-[slideIn_0.3s_ease-out] flex justify-end';
@@ -606,6 +625,7 @@
           chatContainer.scrollTop = chatContainer.scrollHeight;
         }
       }, 3000); //reactions timing; change along with showNextMessage timing to prevent message overlap
+      //now 3 seconds until response hits
 
       //Reset wrong clicks counter for next message so no additive penalty
       wrongClicksCount = 0;
@@ -614,9 +634,11 @@
       document.getElementById('submitAnalysis').disabled = true;
       
       currentMessageIndex++;
-      setTimeout(() => showNextMessage(), 4000); //adjust next message timing based on reactions timing
+      setTimeout(() => showNextMessage(), 4000); //adjust next message timing based on reactions timing, now 4 seconds till next misinfo message
+      //doesn't take a total of 7 (4+3) seconds, but only 4, so pls mind the overlap 
     };
 
+    //message stats in accordion format - dropdowns are assigned to each message; when one is clicked - dropped down. when another is clicked, the previous is reset and current one is dropped down.  
     function toggleAccordion(index) {
       const content = document.getElementById(`content-${index}`);
       const arrow = document.getElementById(`arrow-${index}`);
@@ -630,6 +652,7 @@
         }
       });
       
+      //logic for reset and open new one
       if (content.classList.contains('hidden')) {
         content.classList.remove('hidden');
         arrow.classList.add('rotate-180');
@@ -639,6 +662,7 @@
       }
     }
 
+    //results logic
     function showResults() {
       document.getElementById('gameScreen').classList.add('hidden');
       document.getElementById('resultsScreen').classList.remove('hidden');
@@ -647,6 +671,7 @@
       
       document.getElementById('finalScore').textContent = `${score}/${maxScore}`;
       
+      //change rank here. innerHTML is enabled
       let emoji, summary;
       if (percentage >= 90) {
         emoji = '🏆';
@@ -668,6 +693,7 @@
       const breakdown = document.getElementById('breakdown');
       breakdown.innerhtml='';
 
+      //accordion content
       gameLog.forEach((log, index) => {
         const item = document.createElement('div');
         item.className = 'mb-2';
